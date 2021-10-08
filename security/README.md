@@ -116,5 +116,5 @@ cat server.xml | grep -A2 FHIR_USER_PASSWORD
 and run the following to enable the required port forwarding;
 
 ```bash
-kubectl --namespace paul-dev port-forward <pod name> 8080:8080
+kubectl --namespace <your namespace> port-forward <pod name> 8080:8080
 ```
