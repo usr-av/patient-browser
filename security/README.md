@@ -100,7 +100,7 @@ helm install fhir .
 
 To access the deployment outside the cluster at this URL -> http://127.0.0.1:8080/patient-browser need to do port mapping for 8080 as follows;
 
-Get the <pod name> of running deployment using;
+Get the pod name of running deployment using;
 
 ```bash
 kubectl get pods -n <your namespace>
