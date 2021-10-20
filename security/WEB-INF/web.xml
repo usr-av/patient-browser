@@ -1,0 +1,38 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+
+<!-- SECURITY ROLES -->
+  <security-role>
+    <role-name>FHIRUsersRole</role-name>
+  </security-role>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Patient Browser</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>All pages constraint</description>
+      <role-name>FHIRUsersRole</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+<!-- Default login page-->
+  
+  <!--
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    
+  </login-config>
+-->
+<!-- Custome Login/error Page - AUTHENTICATION METHOD: Form based authentication -->
+  
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/login.html</form-login-page>
+      <form-error-page>/error.html</form-error-page>
+    </form-login-config>
+  </login-config>
+
+
+</web-app>
