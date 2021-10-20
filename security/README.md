@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Instructions are provided below for a configuration to securely deploy the Patient Browser Application as a servlet in the same container as a FHIR server. THe Patient Browser application will be, an additional protected resource to the FHIR server, deployed on Liberty. Users with correct security role to access the Patient Browser application are configured within the Liberty basic user registry.
+Instructions are provided below for a configuration to securely deploy the Patient Browser Application as a servlet in the same container as a FHIR server. The Patient Browser application will be an additional protected resource to the FHIR server on Liberty. Users with correct security role to access the Patient Browser application are configured within the Liberty basic user registry.
 
 THe base FHIR deployment used is as per helm chart [here](https://github.com/Alvearie/health-patterns/blob/main/helm-charts/fhir/chart/README.md) but modified to include deployment of the Patient Browser application as a protected servlet resource running on the same LIberty server and in the same container.
 
