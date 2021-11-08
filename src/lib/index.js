@@ -467,13 +467,10 @@ function getInsightEntryDetails(item) {
                 }
             }
         } else if (url == "http://ibm.com/fhir/cdm/insight/evidence-detail") {
-            result.evidenceDetail = "Evidence Detail Evidence Detail Evidence Detail";
-            console.log(entry_arr[arr_ext_outer]);
             let valueAttachment = getPath(entry_arr[arr_ext_outer],"valueAttachment");
             let evidenceDetailDecoded = JSON.parse(atob(valueAttachment.data));
             let spellCorrectedText = getPath(evidenceDetailDecoded,"spellCorrectedText");
             result.evidenceDetail = spellCorrectedText[0].correctedText;
-            console.log(result.evidenceDetail);
         }
     }
     return result
