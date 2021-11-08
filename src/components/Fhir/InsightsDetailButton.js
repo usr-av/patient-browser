@@ -17,6 +17,7 @@ export default class InsightsDetailButton extends React.Component {
         let details = getInsightDetails(rec)
         let isDocument = details.insightSource==InsightSource.DOCUMENT
         let prettyDate = new Date(details.lastUpdated).toUTCString()
+        const extendedCharacters = 30
 
         let sourceUrl
         if (isDocument) {
@@ -76,7 +77,36 @@ export default class InsightsDetailButton extends React.Component {
                                 <tbody>
                                     <tr>
                                         <td><strong>Covered Text</strong></td>
-                                        <td>"...<em>{details.coveredText}</em>..." [{details.offsetBegin}:{details.offsetEnd}]</td>
+                                        <td>
+                                        "
+                                        {details.offsetBegin > extendedCharacters
+                                        ? "..." +
+                                        details.evidenceDetail.substring(
+                                        details.offsetBegin - extendedCharacters,
+                                        details.offsetBegin
+                                        )
+                                        : details.evidenceDetail.substring(
+                                        0,
+                                        details.offsetBegin
+                                        )}
+                                        <span class="search-match">
+                                        {details.evidenceDetail.substring(
+                                        details.offsetBegin,
+                                        details.offsetEnd
+                                        )}
+                                        </span>
+                                        {details.offsetEnd + extendedCharacters >
+                                        details.evidenceDetail.length
+                                        ? details.evidenceDetail.substr(
+                                        details.offsetEnd,
+                                        extendedCharacters
+                                        )
+                                        : details.evidenceDetail.substr(
+                                        details.offsetEnd,
+                                        extendedCharacters
+                                        ) + "..."}
+                                        "
+                                        [{details.offsetBegin}:{details.offsetEnd}]</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Confidence</strong></td>
