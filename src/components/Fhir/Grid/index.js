@@ -44,15 +44,7 @@ export class Grid extends React.Component
 
     renderResource(res, i)
     {
-        let url = `${this.props.settings.server.url}/${res.resourceType}/${res.id}`;
-        if (this.props.settings.fhirViewer.enabled) {
-            url = this.props.settings.fhirViewer.url +
-                (this.props.settings.fhirViewer.url.indexOf("?") > -1 ? "&" : "?") +
-                this.props.settings.fhirViewer.param + "=" +
-                encodeURIComponent(url);
-        } else {
-            url += "?_format=json&_pretty=true"
-        }
+        
 
         return (
             <tr key={i}>
@@ -79,9 +71,6 @@ export class Grid extends React.Component
                 }
                 <td>
                     <div className="text-primary text-center">
-                        <button onClick={ () => window.open(url, "_blank", "noopener,noreferrer") }>
-                            <i className="fa fa-eye fas fa-bold"/>
-                        </button>
                         <button onClick={() => this.setState({modalOpen: true,resourceForModal: base64decodeResource(res),})}>
                             <i className="fa fa-eye fas fa-bold" />
                         </button>
