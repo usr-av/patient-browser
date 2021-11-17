@@ -1,6 +1,8 @@
 import React       from "react"
+import Modal from "react-modal";
+import JSONViewer from "react-json-view";
 import PropTypes   from "prop-types"
-import { getPath } from "../../../lib"
+import { getPath,base64decodeResource } from "../../../lib"
 import { connect } from "react-redux"
 
 /**
@@ -80,6 +82,23 @@ export class Grid extends React.Component
                         <button onClick={ () => window.open(url, "_blank", "noopener,noreferrer") }>
                             <i className="fa fa-eye fas fa-bold"/>
                         </button>
+                        <button onClick={() => this.setState({modalOpen: true,resourceForModal: base64decodeResource(res),})}>
+                            <i className="fa fa-eye fas fa-bold" />
+                        </button>
+                        <Modal
+                            isOpen={this.state.modalOpen}
+                            onRequestClose={() => this.setState({ modalOpen: false })}
+                            preventScroll={true}
+                        >
+                            <div>
+                                <JSONViewer
+                                    style={{ overflow: "scroll", height: "100%" }}
+                                    collapsed={false}
+                                    theme="monokai"
+                                    src={this.state.resourceForModal}
+                                />
+                            </div>{" "}
+                        </Modal>
                     </div>
                 </td>
             </tr>
