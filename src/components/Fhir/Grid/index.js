@@ -1,6 +1,8 @@
 import React       from "react"
+import Modal from "react-modal";
+import JSONViewer from "react-json-view";
 import PropTypes   from "prop-types"
-import { getPath } from "../../../lib"
+import { getPath,base64decodeResource } from "../../../lib"
 import { connect } from "react-redux"
 
 /**
@@ -42,15 +44,7 @@ export class Grid extends React.Component
 
     renderResource(res, i)
     {
-        let url = `${this.props.settings.server.url}/${res.resourceType}/${res.id}`;
-        if (this.props.settings.fhirViewer.enabled) {
-            url = this.props.settings.fhirViewer.url +
-                (this.props.settings.fhirViewer.url.indexOf("?") > -1 ? "&" : "?") +
-                this.props.settings.fhirViewer.param + "=" +
-                encodeURIComponent(url);
-        } else {
-            url += "?_format=json&_pretty=true"
-        }
+        
 
         return (
             <tr key={i}>
@@ -77,9 +71,23 @@ export class Grid extends React.Component
                 }
                 <td>
                     <div className="text-primary text-center">
-                        <button onClick={ () => window.open(url, "_blank", "noopener,noreferrer") }>
-                            <i className="fa fa-eye fas fa-bold"/>
+                        <button onClick={() => this.setState({modalOpen: true,resourceForModal: base64decodeResource(res),})}>
+                            <i className="fa fa-eye fas fa-bold" />
                         </button>
+                        <Modal
+                            isOpen={this.state.modalOpen}
+                            onRequestClose={() => this.setState({ modalOpen: false })}
+                            preventScroll={true}
+                        >
+                            <div>
+                                <JSONViewer
+                                    style={{ overflow: "scroll", height: "100%" }}
+                                    collapsed={false}
+                                    theme="monokai"
+                                    src={this.state.resourceForModal}
+                                />
+                            </div>{" "}
+                        </Modal>
                     </div>
                 </td>
             </tr>

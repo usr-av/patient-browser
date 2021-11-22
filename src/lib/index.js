@@ -105,6 +105,44 @@ export function getPath(obj, path = "") {
     .reduce((out, key) => (out ? out[key] : undefined), obj);
 }
 
+
+/**
+ * Base64 decodes data attributes for various resource types
+ * @param {Object} res The input resource json object
+ * @returns {Object} Decoded resource json object
+ */
+export function base64decodeResource(res) {
+  let decodedResource = JSON.parse(JSON.stringify(res));
+  switch (res.resourceType) {
+    case "DiagnosticReport":
+      decodedResource.presentedForm[0].data = atob(
+        decodedResource.presentedForm[0].data
+      );
+      break;
+    case "Condition":
+    case "AllergyIntolerance":
+    case "Immunization":
+      decodedResource.meta.extension[0].extension.forEach((item) => {
+        if (item.url == "http://ibm.com/fhir/cdm/insight/insight-entry") {
+          console.log("Eureka");
+          item.extension.forEach((item2) => {
+            if (
+              item2.url == "http://ibm.com/fhir/cdm/insight/evidence-detail"
+            ) {
+              item2.valueAttachment.data = JSON.parse(
+                atob(item2.valueAttachment.data)
+              );
+            }
+          });
+        }
+      });
+
+      break;
+  }
+
+  return decodedResource;
+}
+
 export function compileQueryString(params) {
   let query = [];
 
