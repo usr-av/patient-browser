@@ -40,7 +40,7 @@ export default class InsightsDetailButton extends React.Component {
             </button>
           }
           position="left center"
-          on={["hover", "click", "focus"]}
+          on="click"
         >
           <div className="drop-shadow panel panel-default">
             <div className="panel-heading">
