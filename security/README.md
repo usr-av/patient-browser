@@ -10,7 +10,7 @@ The base FHIR deployment used is as per helm chart [here](https://github.com/Alv
 
 - Kubernetes cluster 1.10+
 - Helm 3.0.0+
-- Docker Hub repository created with name \<docker username>/local-fhir-server and logged in to docker hub from command line (using docker login -u <docker usernmame>)
+- Docker Hub repository created with name \<docker username>/local-fhir-server and logged in to docker hub from command line (using docker login -u \<docker usernmame>)
 
 ## Deployment
 
