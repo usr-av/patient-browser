@@ -58,7 +58,7 @@ docker push <docker username>/local-fhir-server:<tag number>
 
 ### Deploy FHIR chart with required configuration 
 
-Deploy passing in required parameters including pointing at required docker image <docker username>/local-fhir-server:<tag number> by running the following;
+Deploy passing in required parameters including pointing at required docker image \<docker username>/local-fhir-server:<tag number> by running the following;
 
 ```bash
 helm repo add alvearie https://alvearie.io/alvearie-helm
