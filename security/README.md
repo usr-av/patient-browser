@@ -72,7 +72,7 @@ helm upgrade --install --render-subchart-notes ibm-fhir-server alvearie/ibm-fhir
 
 URL to access deployment is -> https://\<INGRESS_HOSTNAME>/patient-browser
 
-## Getting credentials
+### Getting credentials
   
 Get the pod name of running deployment using;
 
