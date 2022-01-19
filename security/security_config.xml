@@ -1,0 +1,11 @@
+<server>
+	<webApplication contextRoot="patient-browser" id="patient-browser" location="Patient-Browser.war" name="patient-browser">
+        	<application-bnd>
+                	        <security-role name="FHIRUsersRole">
+        	                        <group name="FHIRUsers"/>
+                        	</security-role>
+        	</application-bnd>
+    	</webApplication>
+
+	<webAppSecurity allowFailOverToBasicAuth="true" singleSignonEnabled="true"/>
+</server>
