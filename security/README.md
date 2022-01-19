@@ -32,7 +32,7 @@ npm i
 
 Modify default.json5 in the build/config directory to have following path to FHIR server configured;
 
-http://127.0.0.1:9080/fhir-server/api/v4
+https://\<INGRESS_HOSTNAME>/fhir-server/api/v4
 
 `cd` to the security directory and create the Patient-Browser.war by running;
 
@@ -64,14 +64,16 @@ Deploy passing in required parameters including pointing at required docker imag
 helm repo add alvearie https://alvearie.io/alvearie-helm
 export POSTGRES_PASSWORD=$(openssl rand -hex 20)
 helm upgrade --install --render-subchart-notes ibm-fhir-server alvearie/ibm-fhir-server --set postgresql.postgresqlPassword=${POSTGRES_PASSWORD} 
---namespace <namespace> --set exposeHttpEndpoint=true --set image.repository=<docker username>/local-fhir-server --set image.tag=<tag number>  
+--namespace <namespace> --set ingress.hostname=<INGRESS_HOSTNAME> --set 'ingress.annotations.nginx\.ingress\.kubernetes\.io/backend-protocol=HTTPS' --set image.repository=<docker username>/local-fhir-server --set image.tag=<tag number>  
   
 ```
 
 ### Accessing the Patient Browser Deployment
 
-To access the deployment outside the cluster at this URL -> http://127.0.0.1:9080/patient-browser need to do port mapping for 9080 as follows;
+URL to access deployment is -> https://\<INGRESS_HOSTNAME>/patient-browser
 
+## Getting credentials
+  
 Get the pod name of running deployment using;
 
 ```bash
@@ -85,8 +87,3 @@ kubectl exec -it <pod name> -n paul-dev bash
 cat server.xml | grep -A2 FHIR_USER_PASSWORD
 ```
 
-and run the following to enable the required port forwarding;
-
-```bash
-kubectl --namespace <your namespace> port-forward <pod name> 9080:9080
-```
