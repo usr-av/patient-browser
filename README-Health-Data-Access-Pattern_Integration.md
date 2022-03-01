@@ -20,7 +20,7 @@ Deploy the Health Data Access Pattern as per here but with the following additio
 7. Add ‘http://127.0.0.1:8081' to ‘Web Origins’ list. 
 
 
-## Patient Browser Deployment
+### Patient Browser Deployment
 
 Git clone this repository and cd into this directory;
 
