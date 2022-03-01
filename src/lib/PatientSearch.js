@@ -526,12 +526,12 @@ export default class PatientSearch {
           .forEach((token) => {
             if (token.indexOf("-") === 0) {
               params.push({
-                name: "_sort:desc",
-                value: token.substring(1),
+                name: "_sort",
+                value: token,
               });
             } else {
               params.push({
-                name: "_sort:asc",
+                name: "_sort",
                 value: token,
               });
             }
