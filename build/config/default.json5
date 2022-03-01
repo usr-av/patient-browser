@@ -2480,6 +2480,7 @@
     },
   },
   patientsPerPage: 25,
+  authEnabled: false,
   timeout: 20000,
   renderSelectedOnly: false,
   fhirViewer: {

@@ -526,12 +526,12 @@ export default class PatientSearch {
           .forEach((token) => {
             if (token.indexOf("-") === 0) {
               params.push({
-                name: "_sort",
-                value: token,
+                name: "_sort:desc",
+                value: token.substring(1),
               });
             } else {
               params.push({
-                name: "_sort",
+                name: "_sort:asc",
                 value: token,
               });
             }
@@ -836,18 +836,33 @@ export default class PatientSearch {
     if (server.type == "DSTU-2") {
       data = data.replace(/\bdeceased=(true|false)\b/gi, "");
     }
+    // Take Access token from session storage if its available ie. if KeyCloak enabled authentication enabled.
+    // And only include authorization header if access token is available
+    let keycloakToken = sessionStorage.getItem("access-token");
 
-    // prepare the base options for the patient ajax request
-    let options = {
-      url: `${server.url}/Patient/_search`,
-      method: "POST",
-      processData: false,
-      data,
-      headers: {
-        accept: "application/fhir+json",
-        "content-type": "application/x-www-form-urlencoded",
-      },
-    };
+    let options = keycloakToken
+      ? {
+          url: `${server.url}/Patient/_search`,
+          method: "POST",
+          processData: false,
+          data,
+          headers: {
+            accept: "application/fhir+json",
+            "content-type": "application/x-www-form-urlencoded",
+
+            authorization: "Bearer " + keycloakToken,
+          },
+        }
+      : {
+          url: `${server.url}/Patient/_search`,
+          method: "POST",
+          processData: false,
+          data,
+          headers: {
+            accept: "application/fhir+json",
+            "content-type": "application/x-www-form-urlencoded",
+          },
+        };
 
     return this.getPatientIDs(server)
       .then((ids) => {
