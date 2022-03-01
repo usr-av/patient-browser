@@ -15,7 +15,7 @@ Deploy the Health Data Access Pattern as per here but with the following additio
 2. Under the ‘Flows’ tab in the “Authentication’ pane select ‘Smart App Launch’ from ‘Browser’ drop-down and then set ‘Patient Selection Authenticator’ to disabled.
 3. Select ‘Client’ from LHS menu.
 4. Click on ‘inferno’ client from Client pane.
-5. Set ‘Consent Required’ to ‘OFF for ‘inferno’ client.
+5. Set ‘Consent Required’ to ‘OFF' for ‘inferno’ client.
 6. Add ‘http://127.0.0.1:8081/*’ to list of ‘Valid Redirect URLs’
 7. Add ‘http://127.0.0.1:8081' to ‘Web Origins’ list. 
 
