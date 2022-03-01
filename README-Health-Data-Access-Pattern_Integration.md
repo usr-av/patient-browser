@@ -12,7 +12,7 @@ Instructions are provided below for a configuration to securely deploy the Patie
 Deploy the Health Data Access Pattern as per here but with the following additional steps carrier out within the Keycloak Admin Console;
 
 1. Select ‘Authentication’ from LHS menu.
-2. Under the ‘Flows’ tab in the “Authentication’ pane select ‘Smart App Launch’ from ‘Browser’ drop-down and then set ‘Patient Selection Authenticcator’ to disabled.
+2. Under the ‘Flows’ tab in the “Authentication’ pane select ‘Smart App Launch’ from ‘Browser’ drop-down and then set ‘Patient Selection Authenticator’ to disabled.
 3. Select ‘Client’ from LHS menu.
 4. Click on ‘inferno’ client from Client pane.
 5. Set ‘Consent Required’ to ‘OFF for ‘inferno’ client.
