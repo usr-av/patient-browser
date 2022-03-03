@@ -9,7 +9,7 @@ Instructions are provided below for a configuration to securely deploy the Patie
 
 ### Health Data Access Pattern Deployment
 
-Deploy the Health Data Access Pattern as per [here](https://github.com/Alvearie/health-patterns/tree/main/data-access) but with the following additional steps carrier out within the Keycloak Admin Console;
+Deploy the Health Data Access Pattern as per [here](https://github.com/Alvearie/health-patterns/tree/main/data-access) but with the following additional steps carried out within the Keycloak Admin Console;
 
 1. Select 'Authentication' from LHS menu.
 2. Under the 'Flows' tab in the 'Authentication' pane select 'Smart App Launch' from 'Browser' drop-down and then set 'Patient Selection Authenticator' to disabled.
