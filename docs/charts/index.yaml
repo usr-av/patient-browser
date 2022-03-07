@@ -3,9 +3,9 @@ entries:
   patient-browser:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2022-03-07T16:26:54.450661-06:00"
+    created: "2022-03-07T16:58:21.199412-06:00"
     description: A Helm Chart to deploy the Patient Browser App.
-    digest: 360b6f9ef6eaf0caac1e2f7ebe122f5298a330d686a6f75487b2950533908564
+    digest: 2045bf13809be4db8781f0926dac4d99d6526c268513ba7d526d89234dc00444
     home: https://github.com/Alvearie/patient-browser
     keywords:
     - ibm
@@ -15,11 +15,11 @@ entries:
     - fhir
     - patient-browser
     maintainers:
-    - email: luisg@us.ibm.com
-      name: Luis A. Garcia
+    - email: dlranum@us.ibm.com
+      name: David Ranum
     name: patient-browser
     type: application
     urls:
     - patient-browser-1.0.0.tgz
     version: 1.0.0
-generated: "2022-03-07T16:26:54.448393-06:00"
+generated: "2022-03-07T16:58:21.197541-06:00"
