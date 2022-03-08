@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: alvearie/patient-browser
+  repository: quay.io/alvearie/patient-browser
   pullPolicy: Always
   tag: 0.0.3
 
