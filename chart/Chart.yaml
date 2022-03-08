@@ -33,5 +33,7 @@ keywords:
 home: https://github.com/Alvearie/patient-browser
 
 maintainers:
+  - name: Paul McBride
+    email: Paul_McBride@ie.ibm.com
   - name: David Ranum
     email: dlranum@us.ibm.com
