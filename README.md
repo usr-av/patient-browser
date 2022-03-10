@@ -24,7 +24,7 @@ The Alvearie Patient Browser app is based on the [SMART on FHIR Patient Browser]
 Git clone this repository and `cd` into the `chart` directory.
 
 ```bash
-git clone https://github.com/Alvearie/patient-browser
+git clone https://github.com/LinuxForHealth/patient-browser
 cd patient-browser/chart
 ```
 
@@ -34,7 +34,7 @@ In order to install the helm chart, you must provide the URL of a FHIR server an
 
 **Important:**
 - The FHIR server URL needs to be reachable from your browser, i.e. from your computer
-- The FHIR server needs to be unauthenticated. When deploying along with [Health Patterns](https://github.com/Alvearie/health-patterns), there is a FHIR Proxy Chart that can remove the authentication of an IBM FHIR server. **Note:** although these instructions are for an unauthenticated FHIR server, there are some additional options [here](https://github.com/Alvearie/patient-browser/tree/master/security).
+- The FHIR server needs to be unauthenticated. When deploying along with [Health Patterns](https://github.com/LinuxForHealth/health-patterns), there is a FHIR Proxy Chart that can remove the authentication of an IBM FHIR server. **Note:** although these instructions are for an unauthenticated FHIR server, there are some additional options [here](https://github.com/LinuxForHealth/patient-browser/tree/master/security).
 - In order to expose the FHIR server, an ingress can be created by including ingress.class and ingress.hostname values.
 
 ```bash
