@@ -105,7 +105,6 @@ export function getPath(obj, path = "") {
     .reduce((out, key) => (out ? out[key] : undefined), obj);
 }
 
-
 /**
  * Base64 decodes data attributes for various resource types
  * @param {Object} res The input resource json object
@@ -122,21 +121,25 @@ export function base64decodeResource(res) {
     case "Condition":
     case "AllergyIntolerance":
     case "Immunization":
-      decodedResource.meta.extension[0].extension.forEach((item) => {
-        if (item.url == "http://ibm.com/fhir/cdm/insight/insight-entry") {
-          console.log("Eureka");
-          item.extension.forEach((item2) => {
-            if (
-              item2.url == "http://ibm.com/fhir/cdm/insight/evidence-detail"
-            ) {
-              item2.valueAttachment.data = JSON.parse(
-                atob(item2.valueAttachment.data)
-              );
-            }
-          });
-        }
-      });
-
+      if (typeof decodedResource.meta.extension != "undefined") {
+        decodedResource.meta.extension[0].extension.forEach((item) => {
+          if (
+            item.url ==
+            "http://ibm.com/fhir/cdm/StructureDefinition/insight-detail"
+          ) {
+            item.extension.forEach((item2) => {
+              if (
+                item2.url ==
+                "http://ibm.com/fhir/cdm/StructureDefinition/evaluated-output"
+              ) {
+                item2.valueAttachment.data = JSON.parse(
+                  atob(item2.valueAttachment.data)
+                );
+              }
+            });
+          }
+        });
+      }
       break;
   }
 
@@ -457,7 +460,7 @@ function getInnerExtentsion(data) {
       for (let item_outer in ext_outer) {
         if (
           getPath(ext_outer[item_outer], "url") ==
-          "http://ibm.com/fhir/cdm/insight/result"
+          "http://ibm.com/fhir/cdm/StructureDefinition/insight"
         ) {
           let ext_inner = getPath(ext_outer[item_outer], "extension");
           return ext_inner;
@@ -478,47 +481,87 @@ function getInsightEntryDetails(item) {
   let entry_arr = getPath(item, "extension");
   for (let arr_ext_outer in entry_arr) {
     let url = getPath(entry_arr[arr_ext_outer], "url");
-    if (url == "http://ibm.com/fhir/cdm/insight/confidence") {
-      // This is gonna be gross, but name and score are stored side-by-side so we gotta iterate twice
+
+    if (url == "http://ibm.com/fhir/cdm/StructureDefinition/reference") {
+      result.basedOn = getPath(
+        entry_arr[arr_ext_outer],
+        "valueReference.reference"
+      );
+    } else if (
+      url == "http://ibm.com/fhir/cdm/StructureDefinition/reference-path"
+    ) {
+      result.referencePath = getPath(entry_arr[arr_ext_outer], "valueString");
+    } else if (
+      url == "http://ibm.com/fhir/cdm/StructureDefinition/insight-result"
+    ) {
       let arr_ext_inner = getPath(entry_arr[arr_ext_outer], "extension");
       for (let e in arr_ext_inner) {
         if (
           getPath(arr_ext_inner[e], "url") ==
-          "http://ibm.com/fhir/cdm/insight/confidence-name"
+          "http://ibm.com/fhir/cdm/StructureDefinition/span"
         ) {
-          if (getPath(arr_ext_inner[e], "valueString") == "Explicit Score") {
-            for (let e in arr_ext_inner) {
-              if (
-                getPath(arr_ext_inner[e], "url") ==
-                "http://ibm.com/fhir/cdm/insight/confidence-score"
-              ) {
-                result.confidence = getPath(arr_ext_inner[e], "valueString");
+          let arr_ext_inner_inner = getPath(arr_ext_inner[e], "extension");
+          for (let i in arr_ext_inner_inner) {
+            if (
+              getPath(arr_ext_inner_inner[i], "url") ==
+              "http://ibm.com/fhir/cdm/StructureDefinition/covered-text"
+            ) {
+              result.coveredText = getPath(
+                arr_ext_inner_inner[i],
+                "valueString"
+              );
+            } else if (
+              getPath(arr_ext_inner_inner[i], "url") ==
+              "http://ibm.com/fhir/cdm/StructureDefinition/offset-begin"
+            ) {
+              result.offsetBegin = getPath(
+                arr_ext_inner_inner[i],
+                "valueInteger"
+              );
+            } else if (
+              getPath(arr_ext_inner_inner[i], "url") ==
+              "http://ibm.com/fhir/cdm/StructureDefinition/offset-end"
+            ) {
+              result.offsetEnd = getPath(
+                arr_ext_inner_inner[i],
+                "valueInteger"
+              );
+            } else if (
+              getPath(arr_ext_inner_inner[i], "url") ==
+              "http://ibm.com/fhir/cdm/StructureDefinition/insight-confidence"
+            ) {
+              let arr_ext_inner_3 = getPath(
+                arr_ext_inner_inner[i],
+                "extension"
+              );
+              let explicitScore = false;
+              let scoreValue;
+              for (let j in arr_ext_inner_3) {
+                if (
+                  getPath(arr_ext_inner_3[j], "url") ==
+                  "http://ibm.com/fhir/cdm/StructureDefinition/description"
+                ) {
+                  if (
+                    getPath(arr_ext_inner_3[j], "valueString") ==
+                    "Explicit Score"
+                  ) {
+                    explicitScore = true;
+                  }
+                } else if (
+                  getPath(arr_ext_inner_3[j], "url") ==
+                  "http://ibm.com/fhir/cdm/StructureDefinition/score"
+                ) {
+                  scoreValue = getPath(arr_ext_inner_3[j], "valueDecimal");
+                }
               }
+              if (explicitScore) result.confidence = scoreValue;
             }
           }
         }
       }
-    } else if (url == "http://ibm.com/fhir/cdm/insight/span") {
-      let arr_ext_inner = getPath(entry_arr[arr_ext_outer], "extension");
-      for (let e in arr_ext_inner) {
-        if (
-          getPath(arr_ext_inner[e], "url") ==
-          "http://ibm.com/fhir/cdm/insight/covered-text"
-        ) {
-          result.coveredText = getPath(arr_ext_inner[e], "valueString");
-        } else if (
-          getPath(arr_ext_inner[e], "url") ==
-          "http://ibm.com/fhir/cdm/insight/offset-begin"
-        ) {
-          result.offsetBegin = getPath(arr_ext_inner[e], "valueInteger");
-        } else if (
-          getPath(arr_ext_inner[e], "url") ==
-          "http://ibm.com/fhir/cdm/insight/offset-end"
-        ) {
-          result.offsetEnd = getPath(arr_ext_inner[e], "valueInteger");
-        }
-      }
-    } else if (url == "http://ibm.com/fhir/cdm/insight/evidence-detail") {
+    } else if (
+      url == "http://ibm.com/fhir/cdm/StructureDefinition/evaluated-output"
+    ) {
       let valueAttachment = getPath(
         entry_arr[arr_ext_outer],
         "valueAttachment"
@@ -548,19 +591,11 @@ export function getInsightDetails(data) {
     for (let item in ext_inner) {
       let url = getPath(ext_inner[item], "url");
       // now that we've got the url, find all the different bits
-      if (url == "http://ibm.com/fhir/cdm/StructureDefinition/process-type") {
-        result.processType = getPath(ext_inner[item], "valueString");
+      if (url == "http://ibm.com/fhir/cdm/StructureDefinition/path") {
+        result.path = getPath(ext_inner[item], "valueString");
       } else if (
-        url == "http://ibm.com/fhir/cdm/StructureDefinition/process-name"
+        url == "http://ibm.com/fhir/cdm/StructureDefinition/insight-detail"
       ) {
-        result.processName = getPath(ext_inner[item], "valueString");
-      } else if (
-        url == "http://ibm.com/fhir/cdm/StructureDefinition/process-version"
-      ) {
-        result.processVersion = getPath(ext_inner[item], "valueString");
-      } else if (url == "http://ibm.com/fhir/cdm/insight/basedOn") {
-        result.basedOn = getPath(ext_inner[item], "valueReference.reference");
-      } else if (url == "http://ibm.com/fhir/cdm/insight/insight-entry") {
         let insightEntryDetails = getInsightEntryDetails(ext_inner[item]);
         for (let key in insightEntryDetails) {
           result[key] = insightEntryDetails[key];
@@ -569,19 +604,17 @@ export function getInsightDetails(data) {
     }
   }
 
-  // get insightSource from processType
-  if (typeof result.processType != "string") {
-    result.insightSource = InsightSource.NONE;
+  // Get InsightSource
+
+  let currentResource =
+    getPath(data, "resourceType") + "/" + getPath(data, "id");
+  let resultReference = result.basedOn;
+  if (currentResource == resultReference) {
+    result.insightSource = InsightSource.SELF;
+  } else if (resultReference) {
+    result.insightSource = InsightSource.DOCUMENT;
   } else {
-    let processTypeArr = result.processType.toLowerCase().split(" ");
-    if (processTypeArr.includes("unstructured")) {
-      result.insightSource = InsightSource.DOCUMENT;
-    } else if (processTypeArr.includes("structured")) {
-      result.insightSource = InsightSource.SELF;
-    } else {
-      // It's not good if this happens
-      result.insightSource = InsightSource.NONE;
-    }
+    result.insightSource = InsightSource.NONE;
   }
 
   return result;
