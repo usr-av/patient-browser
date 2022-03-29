@@ -60,31 +60,7 @@ export default class InsightsDetailButton extends React.Component {
                 <tbody>
                   <tr>
                     <td>
-                      <strong>Last Updated</strong>
-                    </td>
-                    <td>{prettyDate}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Process Name</strong>
-                    </td>
-                    <td>{details.processName}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Process Type</strong>
-                    </td>
-                    <td>{details.processType}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Process Version</strong>
-                    </td>
-                    <td>{details.processVersion}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Insight Source</strong>
+                      <strong>Insight Source Resource</strong>
                     </td>
                     <td>
                       {isDocument ? (
@@ -100,6 +76,20 @@ export default class InsightsDetailButton extends React.Component {
                       )}
                     </td>
                   </tr>
+                  <tr>
+                    <td>
+                      <strong>Insight Source Resource Location</strong>
+                    </td>
+                    <td>{details.referencePath}</td>
+                  </tr>
+                  {!isDocument ? (
+                    <tr>
+                      <td>
+                        <strong>Resource Element Insight Pertains to</strong>
+                      </td>
+                      <td>{details.path}</td>
+                    </tr>
+                  ) : null}
                 </tbody>
                 {isDocument ? (
                   <tbody>
