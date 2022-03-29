@@ -3,9 +3,9 @@ entries:
   patient-browser:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2022-03-08T07:41:35.937745-06:00"
+    created: "2022-03-29T12:52:33.781752-05:00"
     description: A Helm Chart to deploy the Patient Browser App.
-    digest: 238b13c72486de5814e78db09032697b9142d2a0c7e38b561f68499b0bfe7ce7
+    digest: a600f3468ebce1aa573d6e1c0bd0ac53db3add05e30ca837fa99ff2a81d712f7
     home: https://github.com/Alvearie/patient-browser
     keywords:
     - ibm
@@ -24,4 +24,4 @@ entries:
     urls:
     - patient-browser-1.0.0.tgz
     version: 1.0.0
-generated: "2022-03-08T07:41:35.929824-06:00"
+generated: "2022-03-29T12:52:33.780745-05:00"
