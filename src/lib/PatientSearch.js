@@ -521,25 +521,16 @@ export default class PatientSearch {
 
       // sort ------------------------------------------------------------
       if (this.sort) {
+        let fullSortString = "";
         String(this.sort)
           .split(",")
           .forEach((token) => {
-            if (token.indexOf("-") === 0) {
-              params.push({
-                name: "_sort",
-                value: token,
-              });
-            } else {
-              params.push({
-                name: "_sort",
-                value: token,
-              });
-            }
+            fullSortString += token + ",";
           });
-        // params.push({
-        //     name : "_sort",
-        //     value: this.sort
-        // })
+        params.push({
+          name: "_sort",
+          value: fullSortString.substring(0, fullSortString.length - 1),
+        });
       }
 
       if (!this.params._id) {
