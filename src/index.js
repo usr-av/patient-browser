@@ -4,6 +4,7 @@ import App from "./components/App";
 import { Provider } from "react-redux";
 import STORE from "./redux";
 import PatientDetail from "./components/PatientDetail";
+import IndividualPatient from "./components/IndividualPatient";
 import PatientList from "./components/PatientList";
 import { Router, Route, Switch } from "react-router";
 import createHistory from "history/createHashHistory";
@@ -59,6 +60,7 @@ if (authEnabled) {
                 <App>
                   <Route path="/" component={PatientList} exact />
                   <Route path="/patient/:index" component={PatientDetail} />
+                  <Route path="/id/:patientId" component={IndividualPatient} />  
                 </App>
               </Switch>
             </Router>
@@ -88,6 +90,7 @@ if (authEnabled) {
           <App>
             <Route path="/" component={PatientList} exact />
             <Route path="/patient/:index" component={PatientDetail} />
+            <Route path="/id/:patientId" component={IndividualPatient} />
           </App>
         </Switch>
       </Router>
