@@ -114,9 +114,11 @@ export function base64decodeResource(res) {
   let decodedResource = JSON.parse(JSON.stringify(res));
   switch (res.resourceType) {
     case "DiagnosticReport":
-      decodedResource.presentedForm[0].data = atob(
-        decodedResource.presentedForm[0].data
-      );
+      if (typeof decodedResource.presentedForm != "undefined") {
+        decodedResource.presentedForm.forEach((item) => {
+          item.data = atob(item.data);
+        });
+      }
       break;
     case "Condition":
     case "AllergyIntolerance":
@@ -571,7 +573,9 @@ function getInsightEntryDetails(item) {
         evidenceDetailDecoded,
         "spellCorrectedText"
       );
-      result.evidenceDetail = spellCorrectedText[0].correctedText;
+      if (spellCorrectedText != undefined) {
+        result.evidenceDetail = spellCorrectedText[0].correctedText;
+      }
     }
   }
   return result;
