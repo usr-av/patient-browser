@@ -191,6 +191,7 @@ export default class AgeSelector extends React.Component
         return (
             <div className={ "age-widget-wrap form-control input-sm" + (this.props.group == "**custom**" ? " custom" : "")}>
                 <select
+                    id="ageSelector"
                     onChange={ this.onGroupChange }
                     value={ this.props.group || "" }
                 >

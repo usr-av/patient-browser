@@ -110,6 +110,7 @@ export default class Header extends React.Component
                         <div className="form-group">
                             {/*<label>Gender:</label>*/}
                             <select
+                                id="genderSelector"
                                 className="form-control input-sm"
                                 onChange={ e => {
                                     store.dispatch(setGender(e.target.value))
