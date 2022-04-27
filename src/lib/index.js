@@ -705,7 +705,7 @@ export function request(options) {
   options = typeof options == "string" ? { url: options } : options || {};
   // Include authorisation header only if KeyCloak access oken set
   let keycloakToken = sessionStorage.getItem("access-token");
-  var headerList = {};
+  let headerList = {};
   headerList = keycloakToken
     ? {
         Accept: "application/fhir+json",
