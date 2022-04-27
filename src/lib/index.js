@@ -703,10 +703,19 @@ export function getBundleURL(bundle, rel) {
 
 export function request(options) {
   options = typeof options == "string" ? { url: options } : options || {};
+  // Include authorisation header only if KeyCloak access oken set
+  let keycloakToken = sessionStorage.getItem("access-token");
+  var headerList = {};
+  headerList = keycloakToken
+    ? {
+        Accept: "application/fhir+json",
+        authorization: "Bearer " + keycloakToken,
+      }
+    : {
+        Accept: "application/fhir+json",
+      };
   let cfg = $.extend(true, options, {
-    headers: {
-      Accept: "application/fhir+json",
-    },
+    headers: headerList,
   });
 
   return new Promise((resolve, reject) => {
