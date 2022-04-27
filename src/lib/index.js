@@ -703,7 +703,7 @@ export function getBundleURL(bundle, rel) {
 
 export function request(options) {
   options = typeof options == "string" ? { url: options } : options || {};
-  // Include authorisation header only if KeyCloak access oken set
+  // Include authorisation header only if KeyCloak access token set
   let keycloakToken = sessionStorage.getItem("access-token");
   let headerList = {};
   headerList = keycloakToken
