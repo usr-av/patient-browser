@@ -7,11 +7,19 @@
 
 ## Welcome to Patient Browser
 
-The Alvearie Patient Browser is an easy to use, standalone application that allows easy access to data stored in a FHIR server.  The UI displays the data at the top level organized by patient.  You can then drill into other resources related to that patient.  Navigation is page by page or patient by patient.
+The LinuxForHealth Patient Browser is an easy to use, standalone application that allows easy access to data stored in a FHIR server.  The UI displays the data at the top level organized by patient.  You can then drill into other resources related to that patient.  Navigation is page by page or patient by patient.
 
-The Alvearie Patient Browser app is based on the [SMART on FHIR Patient Browser](https://github.com/smart-on-fhir/patient-browser)
+The LinuxForHealth Patient Browser app is based on the [SMART on FHIR Patient Browser](https://github.com/smart-on-fhir/patient-browser)
 
 ## How to deploy
+
+Instructions for a default deployment configuration are provided below where the Patient Browser application is deployed in a separate container to that of the FHIR server.
+
+Instructions are provided [here](https://github.com/LinuxForHealth/patient-browser/tree/master/security/README.md) for a configuration to securely deploy the Patient Browser Application as a servlet in the same container as a FHIR server where the Patient Browser application will be just an additional protected resource to the FHIR server on Liberty.
+
+Instructions are provided [here](https://github.com/LinuxForHealth/patient-browser/tree/master/security/README-Health-Data-Access-Pattern_Integration.md) for a configuration to securely deploy the Patient Browser Application by integrating with a FHIR server protected by a SMART App Launch authorization server that is built on Keycloak, as per the [Health Data Access Reference Implementation](https://github.com/Alvearie/health-patterns/tree/main/data-access).
+
+## Default Deployment Configuration 
 
 ### Pre-Requisites
 
