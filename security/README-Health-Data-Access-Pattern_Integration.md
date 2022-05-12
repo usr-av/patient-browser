@@ -23,7 +23,7 @@ Deploy the Health Data Access Pattern as per [here](https://github.com/LinuxForH
 Git clone this repository and cd into this directory;
 
 ```bash
-git clone https://github.com/Alvearie/patient-browser
+git clone https://github.com/LinuxForHealth/patient-browser
 ```
 
 Run the following to refresh the build;
