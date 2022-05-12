@@ -17,7 +17,7 @@ Instructions for a default deployment configuration are provided below where the
 
 Instructions are provided [here](https://github.com/LinuxForHealth/patient-browser/tree/master/security/README.md) for a configuration to securely deploy the Patient Browser Application as a servlet in the same container as a FHIR server where the Patient Browser application will be just an additional protected resource to the FHIR server on Liberty.
 
-Instructions are provided [here](https://github.com/LinuxForHealth/patient-browser/tree/master/security/README-Health-Data-Access-Pattern_Integration.md) for a configuration to securely deploy the Patient Browser Application by integrating with a FHIR server protected by a SMART App Launch authorization server that is built on Keycloak, as per the [Health Data Access Reference Implementation](https://github.com/Alvearie/health-patterns/tree/main/data-access).
+Instructions are provided [here](https://github.com/LinuxForHealth/patient-browser/tree/master/security/README-Health-Data-Access-Pattern_Integration.md) for a configuration to securely deploy the Patient Browser Application by integrating with a FHIR server protected by a SMART App Launch authorization server that is built on Keycloak, as per the [Health Data Access Reference Implementation](https://github.com/LinuxForHealth/health-patterns/tree/main/data-access).
 
 ## Default Deployment Configuration 
 
