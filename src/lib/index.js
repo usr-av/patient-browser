@@ -143,6 +143,13 @@ export function base64decodeResource(res) {
         });
       }
       break;
+    case "DocumentReference":
+      if (typeof decodedResource.content != "undefined") {
+        decodedResource.content.forEach((item) => {
+          item.attachment.data = atob(item.attachment.data);
+        });
+      }
+      break;
   }
 
   return decodedResource;
