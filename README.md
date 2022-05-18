@@ -53,7 +53,7 @@ helm install fhir-ui . --set fhirServer=https://{my-fhir-server} --set ingress.h
 
 ## Using patient-browser
 
-Access your FHIR UI at: `http://<<INGRESS_HOSTNAME>>/index.html`
+Access your FHIR UI at: `https://<<INGRESS_HOSTNAME>>/patient-browser/`
 
 ### Uninstallation
 
