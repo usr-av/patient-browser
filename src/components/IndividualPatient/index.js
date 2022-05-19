@@ -142,7 +142,6 @@ export class IndividualPatient extends React.Component {
     return (
       <div className="panel panel-default patient col-xs-12">
         <div className="row">
-          {this.state.loading ? <Loader /> : null}
           <div className="col-xs-2 col-sm-2 col-md-1">
             <div className="embed-responsive">
               <PatientImage
@@ -156,8 +155,7 @@ export class IndividualPatient extends React.Component {
             <div className="patient-row">
               <div className="col-xs-7 patient-name">
                 <h3 className="pull-left text-primary">
-                  {getPatientName(this.state.patient) ||
-                    (this.state.loading ? "loading..." : "Unknown")}
+                  {getPatientName(this.state.patient) || "Unknown"}
                 </h3>
               </div>
 
@@ -176,58 +174,50 @@ export class IndividualPatient extends React.Component {
                 Gender:
               </div>
               <div className="col-xs-8 col-sm-3 col-lg-3 text-left">
-                {this.state.patient.gender ||
-                  (this.state.loading ? "loading..." : "Unknown")}
+                {this.state.patient.gender || "Unknown"}
               </div>
               <div className="col-xs-4 col-sm-2 col-lg-1 text-right text-muted">
                 DOB:
               </div>
               <div className="col-xs-8 col-sm-5 col-lg-3 text-left">
-                {this.state.patient.birthDate ||
-                  (this.state.loading ? "loading..." : "Unknown")}
+                {this.state.patient.birthDate || "Unknown"}
               </div>
 
               <div className="col-xs-4 col-sm-2 col-lg-1 text-right text-muted">
                 Age:
               </div>
               <div className="col-xs-8 col-sm-3 col-lg-3 text-left">
-                {getPatientAge(this.state.patient) ||
-                  (this.state.loading ? "loading..." : "Unknown")}
+                {getPatientAge(this.state.patient) || "Unknown"}
               </div>
               <div className="col-xs-4 col-sm-2 col-lg-1 text-right text-muted">
                 Email
               </div>
               <div className="col-xs-8 col-sm-5 col-lg-3 text-left">
-                {getPatientEmail(this.state.patient) ||
-                  (this.state.loading ? "loading..." : "Unknown")}
+                {getPatientEmail(this.state.patient) || "Unknown"}
               </div>
               <div className="col-xs-4 col-sm-2 col-lg-1 text-right text-muted">
                 Phone:
               </div>
               <div className="col-xs-8 col-sm-3 col-lg-3 text-left">
-                {getPatientPhone(this.state.patient) ||
-                  (this.state.loading ? "loading..." : "Unknown")}
+                {getPatientPhone(this.state.patient) || "Unknown"}
               </div>
               <div className="col-xs-4 col-sm-2 col-lg-1 text-right text-muted">
                 Address:
               </div>
               <div className="col-xs-8 col-sm-5 col-lg-3 text-left">
-                {getPatientHomeAddress(this.state.patient) ||
-                  (this.state.loading ? "loading..." : "Unknown")}
+                {getPatientHomeAddress(this.state.patient) || "Unknown"}
               </div>
               <div className="col-xs-4 col-sm-2 col-lg-1 text-right text-muted">
                 ID:
               </div>
               <div className="col-xs-8 col-sm-3 col-lg-3 text-left">
-                {this.state.patient.id ||
-                  (this.state.loading ? "loading..." : "Unknown")}
+                {this.state.patient.id || "Unknown"}
               </div>
               <div className="col-xs-4 col-sm-2 col-lg-1 text-right text-muted">
                 MRN:
               </div>
               <div className="col-xs-8 col-sm-5 col-lg-3 text-left">
-                {getPatientMRN(this.state.patient) ||
-                  (this.state.loading ? "loading..." : "Unknown")}
+                {getPatientMRN(this.state.patient) || "Unknown"}
               </div>
               {this.state.patient.deceasedBoolean ||
               this.state.patient.deceasedDateTime ? (
@@ -311,61 +301,67 @@ export class IndividualPatient extends React.Component {
     }
 
     return (
-      <div className="page patient-detail-page">
-        <div className="container">
-          {this.renderPatient()}
+      <div>
+        {this.state.loading ? (
+          <Loader />
+        ) : (
+          <div className="page patient-detail-page">
+            <div className="container">
+              {this.renderPatient()}
 
-          {groups.length ? (
-            <div className="row patient-details">
-              <br />
-              <div className="col-xs-12 col-sm-3">
-                <ul className="list-group">
-                  {groups.map((k, i) => (
-                    <a
-                      href="#"
-                      key={i}
-                      className={
-                        "list-group-item" +
-                        (k === selectedSubCat ? " active" : "")
-                      }
-                      onClick={(e) => {
-                        e.preventDefault();
-                        this.setState({
-                          selectedSubCat: k,
-                        });
-                      }}
-                    >
-                      <b className="badge pull-right">
-                        {this.state.groups[k].length}
-                      </b>
-                      <b>{k}</b>
-                    </a>
-                  ))}
-                </ul>
-              </div>
-              <div className="col-xs-12 col-sm-9">
-                {this.renderResources(selectedSubCat)}
-              </div>
-            </div>
-          ) : this.state.loading ? null : (
-            <div className="row">
-              <div className="col-xs-12 text-muted text-center">
-                No additional details for this patient
-              </div>
-            </div>
-          )}
-        </div>
-        {window.opener || (window.parent && window.parent !== window) ? (
-          <nav className="navbar navbar-default navbar-fixed-bottom">
-            <div className="container-fluid" style={{ width: "100%" }}>
-              <div className="row">
-                <div className="col-xs-12" style={{ paddingTop: 8 }}>
-                  <DialogFooter />
+              {groups.length ? (
+                <div className="row patient-details">
+                  <br />
+                  <div className="col-xs-12 col-sm-3">
+                    <ul className="list-group">
+                      {groups.map((k, i) => (
+                        <a
+                          href="#"
+                          key={i}
+                          className={
+                            "list-group-item" +
+                            (k === selectedSubCat ? " active" : "")
+                          }
+                          onClick={(e) => {
+                            e.preventDefault();
+                            this.setState({
+                              selectedSubCat: k,
+                            });
+                          }}
+                        >
+                          <b className="badge pull-right">
+                            {this.state.groups[k].length}
+                          </b>
+                          <b>{k}</b>
+                        </a>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="col-xs-12 col-sm-9">
+                    {this.renderResources(selectedSubCat)}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="row">
+                  <div className="col-xs-12 text-muted text-center">
+                    No additional details for this patient
+                  </div>
+                </div>
+              )}
             </div>
-          </nav>
-        ) : null}
+            {window.opener || (window.parent && window.parent !== window) ? (
+              <nav className="navbar navbar-default navbar-fixed-bottom">
+                <div className="container-fluid" style={{ width: "100%" }}>
+                  <div className="row">
+                    <div className="col-xs-12" style={{ paddingTop: 8 }}>
+                      <DialogFooter />
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            ) : null}
+          </div>
+        )}
       </div>
     );
   }
