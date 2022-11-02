@@ -12,3 +12,5 @@ selenium-debug.log
 src/.DS_Store
 .idea/*.*
 build/config/default.json5
+/build/js/
+/build/index.html
