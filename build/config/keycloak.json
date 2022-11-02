@@ -1,8 +1,7 @@
 {
   "realm": "test",
-  "auth-server-url": "https://localhost:8443/auth",
-  "ssl-required": "external",
+  "auth-server-url": "http://keycloak:8080/auth",
+  "ssl-required": "none",
   "resource": "inferno",
-  "public-client": true,
-  "confidential-port": 0
+  "public-client": false
 }
